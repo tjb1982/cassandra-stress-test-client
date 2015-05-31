@@ -15,7 +15,7 @@
     (catch Exception e
       [])))
 
-(defn get-iteration
+(defn get-attributes
   [session keyspace iteration]
   (let [attributes (-> session
                      (.execute (str "select attributes from " keyspace ".iterations where iteration = " iteration))

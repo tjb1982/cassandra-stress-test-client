@@ -25,7 +25,7 @@
       {:status 200
        :headers {"Content-Type" "application/json"}
        :body (json/write-str
-               (models/get-iteration
+               (models/get-attributes
                  session
                  (-> request :params :keyspace)
                  (-> request :params :iteration)))})
