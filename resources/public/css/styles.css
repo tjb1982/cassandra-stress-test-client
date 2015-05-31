@@ -1,0 +1,24 @@
+html {
+  background: #aaa;
+}
+
+.chart-container {
+  width: auto;
+  height: 300px;
+  margin: 10px 0;
+  box-shadow: 0px 0px 25px #000;
+}
+
+#keyspace-form label {
+  display:block;
+  margin: 0 0 5px 0;
+}
+
+#iterations ul {
+  max-height: 150px;
+  width: 30%;
+  overflow: auto;
+  padding: 15px;
+  list-style: none outside none;
+  background-color: #eef;
+}
