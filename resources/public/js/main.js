@@ -50,10 +50,13 @@ function iterationClick(e) {
   var href = $(this).attr('href');
   var http = new XMLHttpRequest();
 
+  $(this).parents("ul").find("li").removeClass("selected");
+  $(this).parents("li").addClass("selected");
+  $chartContainer.empty();
+
   http.onload = function(e) {
     // reload data into one chart
     var testdata = JSON.parse(http.response);
-    $chartContainer.empty();
     testdata.forEach(function(attribute, idx) {
       $chartContainer.append(h.render(["div", {id: "container" + idx, class: "chart-container"}, ""]));
       var chart = new CanvasJS.Chart("container" + idx, {

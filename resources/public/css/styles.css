@@ -23,6 +23,10 @@ form label {
   background-color: #eef;
 }
 
+#iterations ul li.selected {
+  font-weight: bold;
+}
+
 #properties-form {
   display:none;
 }
