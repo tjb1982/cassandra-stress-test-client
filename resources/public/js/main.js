@@ -72,7 +72,11 @@ function iterationClick(e) {
           labelMaxWidth: 50
         },
         subtitles: [{
-          text: attribute["attribute"]
+          text: attribute["attribute"]  + (
+            ~attribute["object-name"].indexOf("Latency") ? " (microseconds)"
+            : ~attribute["object-name"].indexOf("AllMemtablesDataSize") ? " (bytes)"
+            : ""
+          )
         },{
           text: "started " + (new Date(attribute.data[0].received))
         }],

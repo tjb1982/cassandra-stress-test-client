@@ -15,7 +15,7 @@
   :main ^:skip-aot automatic-stress-client.core
   :target-path "target/%s"
 
-  :plugins [[lein-ring "0.7.1"]]
+  :plugins [[lein-ring "0.9.4"]]
   :ring {:handler automatic-stress-client.core/app}
 
   :profiles {:uberjar {:aot :all}})

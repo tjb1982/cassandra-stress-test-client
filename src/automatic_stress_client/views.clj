@@ -23,7 +23,6 @@
         [:div#iterations]
         [:div#chart-container]
         (include-js "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
-        (include-js "/js/Chart.min.js")
         (include-js "/js/canvasjs.min.js")
         (include-js "/js/hoquet.js")
         (include-js "/js/main.js")

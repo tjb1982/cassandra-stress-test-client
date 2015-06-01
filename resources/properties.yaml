@@ -2,7 +2,7 @@ tester-contact-point: localhost
 recorder-contact-point: localhost
 jmx-port: 7199
 recording-keyspace: test2
-frequency: 10
+frequency: 1000
 
 attributes:
   - object-name: org.apache.cassandra.metrics:type=ColumnFamily,name=LiveSSTableCount
@@ -16,6 +16,7 @@ attributes:
         - 10
   - object-name: org.apache.cassandra.metrics:type=ColumnFamily,name=AllMemtablesDataSize
     attribute: Value
+    frequency: 5000
     assertions:
       - non-negative:
         - true
@@ -25,7 +26,6 @@ attributes:
         - 10
   - object-name: org.apache.cassandra.metrics:type=ClientRequest,scope=Write,name=Latency
     attribute: 95thPercentile
-    frequency: 1
     assertions:
       - non-negative:
         - true
