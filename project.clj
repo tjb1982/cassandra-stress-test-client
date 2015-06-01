@@ -9,6 +9,7 @@
                  [ring "1.4.0-RC1"]
                  [automatic-stress "0.1.0-SNAPSHOT"]
                  [org.clojure/data.json "0.2.6"]
+                 [clj-yaml "0.4.0"]
                  [com.datastax.cassandra/cassandra-driver-core "2.1.6"]
                 ]
   :main ^:skip-aot automatic-stress-client.core

@@ -3,19 +3,39 @@ var h = new Hoquet();
 var $iterationsList = $("#iterations");
 var $keyspaceForm = $("#keyspace-form");
 var $chartContainer = $("#chart-container");
+var $showPropertiesAnchor = $("#show-properties");
+var $propertiesForm = $("#properties-form");
 var keyspace = "";
 
 $keyspaceForm.on("submit", ajaxGetIterationsForKeyspace);
 $iterationsList.on("click", "a", iterationClick);
+$showPropertiesAnchor.on("click", togglePropertiesForm);
+$propertiesForm.on("submit", ajaxRunTest);
 
 /* main */
 //var chart = new Chart(document.getElementById("chart").getContext("2d")).Line(data, options);
 
 /* controllers */
+function ajaxRunTest(e) {
+  e.preventDefault();
+  var properties = $(this).find("textarea").val();
+  var http = new XMLHttpRequest();
+
+  http.open("post", "/api/run-test", true);
+  http.send(properties);
+  return false;
+}
+
+function togglePropertiesForm(e) {
+  $propertiesForm.toggle('fast');
+}
+
 function ajaxGetIterationsForKeyspace(e) {
   e.preventDefault();
-  keyspace = $keyspaceForm[0].elements["keyspace"].value;
   var http = new XMLHttpRequest();
+  keyspace = $keyspaceForm[0].elements["keyspace"].value;
+
+  $chartContainer.empty();
 
   http.onload = function(e) {
     $iterationsList.html(iterationsList(JSON.parse(http.response)));
@@ -75,10 +95,13 @@ function iterationsList(iterations) {
   return h.render(!iterations.length ? ['h3', 'No test iterations found']
     : [
       ['h3', 'Choose from one of the iterations below'],
-      ['ul', iterations.map(function(iteration) {
+      ['ul', iterations.sort(function(a, b) {
+        return b['run-date'] - a['run-date'];
+      }).map(function(iteration) {
         return [
           'li', [
-            'a', {href: '/api/iteration/' + iteration}, iteration
+            'a', {href: '/api/iteration/' + iteration.iteration},
+            iteration.iteration, " &ndash; ", new Date(iteration["run-date"]) + ""
           ]
         ];
       })]

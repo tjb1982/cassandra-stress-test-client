@@ -36,10 +36,18 @@
                (models/get-all-iterations
                  session
                  (-> request :params :keyspace)))})
+    (POST "/run-test" request
+      (future (models/run-test (slurp (-> request :body))))
+      {:status 201
+       :headers {"Content-Type" "application/json"}
+       :body (json/write-str {:message "running"})})
     ))
 
 (defroutes main-routes
-  (GET "/" [] (views/index))
+  (GET "/" [] (views/index 
+                (slurp
+                  (clojure.java.io/file
+                    (clojure.java.io/resource "properties.yaml")))))
   api
   (route/resources "/")
   (route/not-found "Page not found"))
