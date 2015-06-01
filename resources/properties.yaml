@@ -1,7 +1,7 @@
 tester-contact-point: localhost
 recorder-contact-point: localhost
 jmx-port: 7199
-recording-keyspace: test2
+recording-keyspace: test
 frequency: 1000
 
 attributes:
