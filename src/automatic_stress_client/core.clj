@@ -13,11 +13,9 @@
             [automatic-stress-client.models :as models]
     ))
 
-(defonce cluster
-  (-> (Cluster/builder) (.addContactPoint "localhost") .build))
+(def ^:dynamic cluster nil)
 
-(defonce session
-  (-> cluster .connect))
+(def ^:dynamic session nil)
 
 (defroutes api
   (context "/api" []
@@ -52,11 +50,18 @@
   (route/resources "/")
   (route/not-found "Page not found"))
 
+(defn init []
+  (alter-var-root #'cluster (fn [_] 
+    (-> (Cluster/builder) (.addContactPoint "localhost") .build)))
+  (alter-var-root #'session (fn [_] 
+    (-> cluster .connect))))
+
 (def app
-  (-> (handler/site main-routes)
-      (wrap-base-url)))
+    (-> (handler/site main-routes)
+        (wrap-base-url)))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
+  (init)
   (run-jetty #'app {:port 3000 :join? false}))

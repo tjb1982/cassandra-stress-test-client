@@ -16,6 +16,7 @@
   :target-path "target/%s"
 
   :plugins [[lein-ring "0.9.4"]]
-  :ring {:handler automatic-stress-client.core/app}
+  :ring {:handler automatic-stress-client.core/app
+         :init automatic-stress-client.core/init}
 
   :profiles {:uberjar {:aot :all}})
